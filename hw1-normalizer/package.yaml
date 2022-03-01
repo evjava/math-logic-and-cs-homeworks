@@ -1,0 +1,50 @@
+name:                "normalizer"
+version:             0.1.0.0
+github:              "evjava/math-logic-and-cs-homeworks/normalizer"
+license:             BSD3
+author:              "Eugene"
+maintainer:          ""
+copyright:           ""
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Converter from boolean formulas to NNF, DNF, CNF
+# category:            formulas, dnf, cnf
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/evjava/normalizer#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- cond >= 0.4.1.1
+
+library:
+  source-dirs: src
+
+
+# executables:
+#   normalizer-exe:
+#     main:                Normalizer.hs
+#     source-dirs:         src
+#     ghc-options:
+#     - -threaded
+#     - -rtsopts
+#     - -with-rtsopts=-N
+#     dependencies:
+#     - normalizer
+
+tests:
+  normalizer-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - normalizer
