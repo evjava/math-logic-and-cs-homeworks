@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 74ad4ee4bacca6137575c82ab4d84eb3e9517cd3056b45a6e9a7e21ca6db577f
+-- hash: 5a4cbc29bb5c2f78941523982f705319a5e870258229e68df4832fd05d038193
 
 name:           normalizer
 version:        0.1.0.0
@@ -26,8 +26,15 @@ source-repository head
 
 library
   exposed-modules:
+      Board
+      BoardPrinter
       Evaluator
+      FormulasUtils
+      ListUtils
+      MinisatHelper
       Normalizer
+      QueenSat
+      VarExtractor
   other-modules:
       Paths_normalizer
   hs-source-dirs:
@@ -35,12 +42,40 @@ library
   build-depends:
       base >=4.7 && <5
     , cond >=0.4.1.1
+    , process >=1.6.13.2
+    , split >=0.2.3.4
   default-language: Haskell2010
 
-test-suite normalizer-test
+executable queen-sat
+  main-is: QueenSat.hs
+  other-modules:
+      Board
+      BoardPrinter
+      Evaluator
+      FormulasUtils
+      ListUtils
+      MinisatHelper
+      Normalizer
+      VarExtractor
+      Paths_normalizer
+  hs-source-dirs:
+      src
+  ghc-options: -main-is QueenSat -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , cond >=0.4.1.1
+    , normalizer >=0.1.0.0
+    , process >=1.6.13.2
+    , split >=0.2.3.4
+  default-language: Haskell2010
+
+test-suite test-all
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      CheckBoard
+      CheckListUtils
+      CheckNormalizer
       Paths_normalizer
   hs-source-dirs:
       test
@@ -48,5 +83,7 @@ test-suite normalizer-test
   build-depends:
       base >=4.7 && <5
     , cond >=0.4.1.1
-    , normalizer
+    , normalizer >=0.1.0.0
+    , process >=1.6.13.2
+    , split >=0.2.3.4
   default-language: Haskell2010
