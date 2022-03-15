@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5a4cbc29bb5c2f78941523982f705319a5e870258229e68df4832fd05d038193
+-- hash: 8ad68a2e4cd92e495a242477cbd49291e6a3c2d2167418b057c0cb892bad4023
 
 name:           normalizer
 version:        0.1.0.0
@@ -29,6 +29,7 @@ library
       Board
       BoardPrinter
       Evaluator
+      Formula
       FormulasUtils
       ListUtils
       MinisatHelper
@@ -52,6 +53,7 @@ executable queen-sat
       Board
       BoardPrinter
       Evaluator
+      Formula
       FormulasUtils
       ListUtils
       MinisatHelper

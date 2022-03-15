@@ -2,6 +2,7 @@
 
 module Evaluator where
 
+import Formula
 import Normalizer
 
 import Data.Algebra.Boolean ((-->), (<-->))
