@@ -101,13 +101,17 @@ Definition eq_compl :
   forall (f g : A -> B) (h : B -> C),
     f =1 g -> h \o f =1 h \o g
   := fun f g h eq_f_g (x : A) =>
-       provide_solution
-         .
+       match (eq_f_g x : f x = g x) in (_ = gx)
+             return (h (f x) = h gx)
+       with
+       | eq_refl => eq_refl (h (f x))
+       end.
 
 (** Exercise: right congruence *)
 Definition eq_compr :
   forall (f g : B -> C) (h : A -> B),
     f =1 g -> f \o h =1 g \o h
-:= provide_solution.
+  := fun f g h eq_f_g (x : A) =>
+       eq_f_g (h x).
 
 End ExtensionalEqualityAndComposition.
