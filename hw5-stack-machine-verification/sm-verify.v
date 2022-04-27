@@ -68,12 +68,12 @@ Proof.
   - simpl. reflexivity.
   - destruct i1; simpl.
     + apply IHp1.
-    + destruct s as [uu aa |top1 s].
+    + destruct s as [|top1 s].
       * contradiction.
       * destruct s as [| top2 s].
         ** contradiction.
         ** apply IHp1.
-    + destruct s as [uu aa |top1 s].
+    + destruct s as [|top1 s].
       * contradiction.
       * destruct s as [| top2 s].
         ** contradiction.
@@ -92,60 +92,19 @@ Proof.
   revert a b. simpl. reflexivity.
 Qed.
 
-(*  
-Lemma run_Add :
-  forall a b s, length(run [Add] (a::b::s)) = S ( length(s) ).
-Proof.
-  intros a b s.
-  
-    
-    apply O_S.
-    intros (length s').
-    Search (0 = S _).
-
-
-
-destruct (length []).
-    destruct (length s').
-    + reflexivity.
-*)      
-    
-
-
-(* нужно переформулировать, что стек растёт *)
-
 Lemma run_compile_non_empty :
-  forall e s, exists x, run (compile e) s = x::s.
+  forall e s, run (compile e) s = (eval e)::s.
 Proof.
-  induction e as [| e1 IHp1 e2 IHp2 |]; intros s; simpl.
-  - exists n. reflexivity.
-  - rewrite !run_cat.
-    + destruct (run (compile e1) s) eqn:E.
-      assert (H: run (compile e1) s = []).
-      rewrite E.
-
-
-generalize (IHp1 s). 
-
-      
-      
-      
-      destruct (run (compile e2) (n :: s0)) eqn:E2.
-      generalize (IHp2 (n :: s0)). rewrite E2. discriminate.
-      
-      rewrite !Add_spec.
-        
-        
-
-      
-  induction e; intros s; simpl.
-  - discriminate. (* const *)
-  - rewrite !run_cat.
-    + simpl.
-      (* сохраняем связь между E чёт там *)
-      destruct (run (compile e2) (run (compile e1) s)) eqn:E.
-      * congruence.
-      * destruct s0.
+  induction e as [| e1 IHp1 e2 IHp2 | e1 IHp1 e2 IHp2]; intros s; simpl.
+  - reflexivity.
+  - rewrite !run_cat; rewrite IHp1.
+    + rewrite IHp2. reflexivity.
+    + rewrite IHp2. discriminate.
+    + discriminate.
+  - rewrite !run_cat; rewrite IHp1.
+    + rewrite IHp2. reflexivity.
+    + rewrite IHp2. discriminate.
+    + discriminate.
 Qed.
 
 (*
@@ -158,12 +117,6 @@ Theorem compile_correct :
     [eval e] = run (compile e) [].
 Proof.
   intros e.
-  induction e as [| e1 IHe1 e2 IHe2 | e1 IHe1 e2 IHe2].
-  - reflexivity.
-  - simpl.
-    rewrite !run_cat.
-    
-      rewrite <- IHe1.
-
-      
+  rewrite !run_compile_non_empty.
+  reflexivity.
 Qed.
